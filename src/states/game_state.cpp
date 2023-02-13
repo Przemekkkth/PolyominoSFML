@@ -20,6 +20,10 @@ void GameState::draw()
 bool GameState::update(sf::Time dt)
 {
     mWorld.update(dt);
+    if(mWorld.isGameOver())
+    {
+        requestStackPush(States::GameOver);
+    }
     return true;
 }
 

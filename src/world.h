@@ -29,46 +29,18 @@ class World : private sf::NonCopyable
         void								draw();
 
         void processInput(const sf::Event& event);
-
-
-        bool 								hasAlivePlayer() const;
-        bool 								hasPlayerReachedEnd() const;
-
+        bool isGameOver() const;
 
     private:
         void								loadTextures();
-        void								adaptPlayerPosition();
-        void								adaptPlayerVelocity();
-        void								handleCollisions();
         void								updateSounds();
-
-        void								buildScene();
-        void								spawnEnemies();
-        void								destroyEntitiesOutsideView();
-        void								guideMissiles();
-        sf::FloatRect						getViewBounds() const;
-        sf::FloatRect						getBattlefieldBounds() const;
-
-
-    private:
-        enum Layer
-        {
-            Background,
-            LowerAir,
-            UpperAir,
-            LayerCount
-        };
-
 
     private:
         sf::RenderWindow&					mTarget;
-        sf::View							mWorldView;
         TextureHolder						mTextures;
         FontHolder&							mFonts;
         SoundPlayer&						mSounds;
 
-
-        sf::FloatRect						mWorldBounds;
 
 
 

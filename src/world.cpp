@@ -3,6 +3,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Event.hpp>
+#include <SFML/System/Sleep.hpp>
 #include <algorithm>
 #include <cmath>
 #include <limits>
@@ -11,14 +12,13 @@
 
 World::World(sf::RenderWindow& outputTarget, FontHolder& fonts, SoundPlayer& sounds)
     : mTarget(outputTarget)
-    , mWorldView(outputTarget.getDefaultView())
+    //, mWorldView(outputTarget.getDefaultView())
     , mTextures()
     , mFonts(fonts)
     , mSounds(sounds)
 
 {
     loadTextures();
-    buildScene();
     srand(time(0));
     nCurrentX = Game::nFieldWidth / 2;
     nCurrentY = 0;
@@ -93,10 +93,10 @@ void World::update(sf::Time dt)
                                 mGame.field()[(nCurrentY + py) * Game::nFieldWidth + px] = Game::ANIM_BLOCK;
                             }
 
-    //                        mTarget.clear();
-    //                        drawField();
-    //                        mWindow.display();
-    //                        sf::sleep(sf::milliseconds(350));
+                            mTarget.clear();
+                            drawField();
+                            mTarget.display();
+                            sf::sleep(sf::milliseconds(350));
 
 
                             vLines.push_back(nCurrentY + py);
@@ -214,6 +214,11 @@ void World::processInput(const sf::Event &event)
 
 }
 
+bool World::isGameOver() const
+{
+    return bGameOver;
+}
+
 void World::loadTextures()
 {
     mTextures.load(Textures::Entities, "Media/Textures/Entities.png");
@@ -230,14 +235,6 @@ void World::updateSounds()
     mSounds.setListenerPosition(sf::Vector2f(0,0));
     mSounds.removeStoppedSounds();
 }
-
-void World::buildScene()
-{
-
-}
-
-
-
 
 void World::render()
 {
