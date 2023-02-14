@@ -111,6 +111,44 @@ sf::String Game::pentomino[] =
                      ".....")
 };
 
+sf::String Game::tetrimino[] =
+{
+    //I
+    sf::String("..X."
+               "..X."
+               "..X."
+               "..X."),
+    //O
+    sf::String("...."
+               ".XX."
+               ".XX."
+               "...."),
+    //T
+    sf::String("...."
+               "XXX."
+               ".X.."
+               "...."),
+    //S
+    sf::String("...."
+               ".XX."
+               "XX.."
+               "...."),
+    //Z
+    sf::String("...."
+               "XX.."
+               ".XX."
+               "...."),
+    //J
+    sf::String(".X.."
+               ".X.."
+               "XX.."
+               "...."),
+    //L
+    sf::String(".X.."
+               ".X.."
+               ".XX."
+               "....")
+};
 
 void Game::initBoard()
 {

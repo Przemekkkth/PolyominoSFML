@@ -12,7 +12,6 @@
 
 World::World(sf::RenderWindow& outputTarget, FontHolder& fonts, SoundPlayer& sounds)
     : mTarget(outputTarget)
-    //, mWorldView(outputTarget.getDefaultView())
     , mTextures()
     , mFonts(fonts)
     , mSounds(sounds)

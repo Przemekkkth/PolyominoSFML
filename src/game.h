@@ -9,16 +9,16 @@ class Game
 public:
     Game();
     static sf::String pentomino[16];
+    static sf::String tetrimino[7];
 
     constexpr static int OFFSET_X = 100;
     constexpr static int OFFSET_Y = 50;
-    constexpr static int nScreenWidth = 80;
-    constexpr static int nScreenHeighht = 30;
 
     constexpr static const int COUNT_OF_PIECES = 16;
     constexpr static int nFieldWidth = 13;
     constexpr static int nFieldHeight = 19;
     constexpr static const int COUNT_OF_BLOCKS = 5;
+
     unsigned char *pField;
 
 
