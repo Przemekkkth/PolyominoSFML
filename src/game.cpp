@@ -10,7 +10,11 @@ Game::Game()
 
 sf::String Game::getElementOfPiece(int x, int y)
 {
-    if(Game::COUNT_OF_BLOCKS == 3)
+    if(Game::COUNT_OF_BLOCKS == 2)
+    {
+        return domino[x][y];
+    }
+    else if(Game::COUNT_OF_BLOCKS == 3)
     {
         return triomino[x][y];
     }
@@ -180,10 +184,28 @@ sf::String Game::triomino[] = {
                "...")
 };
 
+sf::String Game::domino[] =
+{
+    sf::String(".X"
+               ".X")
+};
+
+sf::String Game::monomino[] = {
+  sf::String("X")
+};
+
 void Game::initBoard(int level)
 {
     std::cout << "initBoard " << level << std::endl;
-    if(level == 3)
+    if(level == 1)
+    {
+        setMonomino();
+    }
+    else if(level == 2)
+    {
+        setDomino();
+    }
+    else if(level == 3)
     {
         setTriomino();
     }
@@ -243,6 +265,26 @@ void Game::setTriomino()
 
 }
 
+void Game::setDomino()
+{
+    OFFSET_X = 300;
+    OFFSET_Y = 200;
+    COUNT_OF_PIECES = 1;
+    nFieldWidth = 6;
+    nFieldHeight = 12;
+    COUNT_OF_BLOCKS = 2;
+}
+
+void Game::setMonomino()
+{
+    OFFSET_X = 340;
+    OFFSET_Y = 200;
+    COUNT_OF_PIECES = 1;
+    nFieldWidth = 5;
+    nFieldHeight = 10;
+    COUNT_OF_BLOCKS = 1;
+}
+
 unsigned char *Game::field() const
 {
     return pField;
@@ -251,7 +293,41 @@ unsigned char *Game::field() const
 int Game::rotate(int px, int py, int r)
 {
     int pi = 0;
-    if(COUNT_OF_BLOCKS == 3)
+    if(COUNT_OF_BLOCKS == 2)
+    {
+        switch(r%4)
+        {
+        case 0://0
+        {
+            //0  1
+            //2  3
+            pi = py * COUNT_OF_BLOCKS + px;
+        }
+            break;
+        case 1://90
+        {
+            //2  0
+            //3  1
+            pi = 2 + py - (px * COUNT_OF_BLOCKS);
+        }
+            break;
+        case 2: //180
+        {
+            //3   2
+            //1   0
+            pi = 3 - (py * COUNT_OF_BLOCKS) - px;
+        }
+            break;
+        case 3://270
+        {
+            // 1  3
+            // 0  2
+            pi = 1 - py + (px * COUNT_OF_BLOCKS);
+        }
+            break;
+        }
+    }
+    else if(COUNT_OF_BLOCKS == 3)
     {
         switch(r%4)
         {

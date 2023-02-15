@@ -12,6 +12,8 @@ public:
     static sf::String pentomino[16];
     static sf::String tetromino[7];
     static sf::String triomino[3];
+    static sf::String domino[1];
+    static sf::String monomino[1];
 
     int OFFSET_X;
     int OFFSET_Y;
@@ -37,6 +39,8 @@ public:
     void setPentomino();
     void setTetromino();
     void setTriomino();
+    void setDomino();
+    void setMonomino();
 };
 
 #endif // GAME_H
