@@ -12,7 +12,7 @@ namespace GUI
 Button::Button(State::Context context)
 : mCallback()
 , mSprite(context.textures->get(Textures::Buttons))
-, mText("", context.fonts->get(Fonts::Main), 16)
+, mText("", context.fonts->get(Fonts::Main), 24)
 , mIsToggle(false)
 , mSounds(*context.sounds)
 {
@@ -20,6 +20,7 @@ Button::Button(State::Context context)
 
     sf::FloatRect bounds = mSprite.getLocalBounds();
     mText.setPosition(bounds.width / 2.f, bounds.height / 2.f);
+    mText.setStyle(sf::Text::Bold);
 }
 
 void Button::setCallback(Callback callback)
