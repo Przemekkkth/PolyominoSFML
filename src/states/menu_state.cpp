@@ -16,6 +16,10 @@ MenuState::MenuState(StateStack& stack, Context context)
     sf::Texture& texture = context.textures->get(Textures::TitleScreen);
     mBackgroundSprite.setTexture(texture);
 
+    sf::Texture& ptexture = context.textures->get(Textures::PolyominoString);
+    mTitleStringSprite.setTexture(ptexture);
+    mTitleStringSprite.setPosition(30, 30);
+
     auto playButton0 = std::make_shared<GUI::Button>(context);
     playButton0->setPosition(20, 100);
     playButton0->setText("Tetromino");
@@ -92,7 +96,8 @@ void MenuState::draw()
 
     window.setView(window.getDefaultView());
 
-    window.draw(mBackgroundSprite);
+    //window.draw(mBackgroundSprite);
+    window.draw(mTitleStringSprite);
     window.draw(mGUIContainer);
 }
 

@@ -16,6 +16,7 @@ namespace Textures
         Entities,
         Jungle,
         TitleScreen,
+        PolyominoString,
         Buttons,
         Explosion,
         Particle,
