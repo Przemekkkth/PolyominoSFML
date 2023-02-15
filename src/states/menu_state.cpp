@@ -20,69 +20,69 @@ MenuState::MenuState(StateStack& stack, Context context)
     mTitleStringSprite.setTexture(ptexture);
     mTitleStringSprite.setPosition(30, 30);
 
-    auto playButton0 = std::make_shared<GUI::Button>(context);
-    playButton0->setPosition(20, 100);
-    playButton0->setText("Tetromino");
-    playButton0->setCallback([this] ()
-    {
-        GameState::choosenLevel = 4;
-        requestStackPop();
-        requestStackPush(States::Game);
-    });
-
-    auto playButton1 = std::make_shared<GUI::Button>(context);
-    playButton1->setPosition(20, 200);
-    playButton1->setText("Pentomino");
-    playButton1->setCallback([this] ()
-    {
-        GameState::choosenLevel = 5;
-        requestStackPop();
-        requestStackPush(States::Game);
-    });
-
-    auto playButton2 = std::make_shared<GUI::Button>(context);
-    playButton2->setPosition(400, 200);
-    playButton2->setText("Triomino");
-    playButton2->setCallback([this] ()
-    {
-        GameState::choosenLevel = 3;
-        requestStackPop();
-        requestStackPush(States::Game);
-    });
-
-    auto playButton3 = std::make_shared<GUI::Button>(context);
-    playButton3->setPosition(200, 20);
-    playButton3->setText("Domino");
-    playButton3->setCallback([this] ()
-    {
-        GameState::choosenLevel = 2;
-        requestStackPop();
-        requestStackPush(States::Game);
-    });
-
-    auto playButton4 = std::make_shared<GUI::Button>(context);
-    playButton4->setPosition(200, 500);
-    playButton4->setText("Monomino");
-    playButton4->setCallback([this] ()
+    auto monominoButton = std::make_shared<GUI::Button>(context);
+    monominoButton->setPosition(230, 200);
+    monominoButton->setText("Monomino");
+    monominoButton->setCallback([this] ()
     {
         GameState::choosenLevel = 1;
         requestStackPop();
         requestStackPush(States::Game);
     });
 
+    auto dominoButton = std::make_shared<GUI::Button>(context);
+    dominoButton->setPosition(230, 275);
+    dominoButton->setText("Domino");
+    dominoButton->setCallback([this] ()
+    {
+        GameState::choosenLevel = 2;
+        requestStackPop();
+        requestStackPush(States::Game);
+    });
+
+    auto triominoButton = std::make_shared<GUI::Button>(context);
+    triominoButton->setPosition(230, 350);
+    triominoButton->setText("Triomino");
+    triominoButton->setCallback([this] ()
+    {
+        GameState::choosenLevel = 3;
+        requestStackPop();
+        requestStackPush(States::Game);
+    });
+
+    auto tetrominoButton = std::make_shared<GUI::Button>(context);
+    tetrominoButton->setPosition(230, 425);
+    tetrominoButton->setText("Tetromino");
+    tetrominoButton->setCallback([this] ()
+    {
+        GameState::choosenLevel = 4;
+        requestStackPop();
+        requestStackPush(States::Game);
+    });
+
+    auto pentominoButton = std::make_shared<GUI::Button>(context);
+    pentominoButton->setPosition(230, 500);
+    pentominoButton->setText("Pentomino");
+    pentominoButton->setCallback([this] ()
+    {
+        GameState::choosenLevel = 5;
+        requestStackPop();
+        requestStackPush(States::Game);
+    });
+
     auto exitButton = std::make_shared<GUI::Button>(context);
-    exitButton->setPosition(200, 400);
+    exitButton->setPosition(230, 575);
     exitButton->setText("Exit");
     exitButton->setCallback([this] ()
     {
         requestStackPop();
     });
 
-    mGUIContainer.pack(playButton0);
-    mGUIContainer.pack(playButton1);
-    mGUIContainer.pack(playButton2);
-    mGUIContainer.pack(playButton3);
-    mGUIContainer.pack(playButton4);
+    mGUIContainer.pack(monominoButton);
+    mGUIContainer.pack(dominoButton);
+    mGUIContainer.pack(triominoButton);
+    mGUIContainer.pack(tetrominoButton);
+    mGUIContainer.pack(pentominoButton);
     //mGUIContainer.pack(settingsButton);
     mGUIContainer.pack(exitButton);
 
