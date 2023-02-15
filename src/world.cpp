@@ -96,7 +96,7 @@ void World::update(sf::Time dt)
                             mTarget.clear();
                             drawField();
                             mTarget.display();
-                            sf::sleep(sf::milliseconds(350));
+                            sf::sleep(sf::milliseconds(50));
 
 
                             vLines.push_back(nCurrentY + py);
