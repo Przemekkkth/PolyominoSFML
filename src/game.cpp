@@ -235,7 +235,7 @@ void Game::setTetromino()
 void Game::setTriomino()
 {
     OFFSET_X = 250;
-    OFFSET_Y = 30;
+    OFFSET_Y = 130;
     COUNT_OF_PIECES = 3;
     nFieldWidth = 8;
     nFieldHeight = 15;
