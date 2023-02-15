@@ -10,14 +10,19 @@ Game::Game()
 
 sf::String Game::getElementOfPiece(int x, int y)
 {
-    if(Game::COUNT_OF_BLOCKS == 5)
+    if(Game::COUNT_OF_BLOCKS == 3)
     {
-        return pentomino[x][y];
+        return triomino[x][y];
     }
     else if(Game::COUNT_OF_BLOCKS == 4)
     {
         return tetromino[x][y];
     }
+    else if(Game::COUNT_OF_BLOCKS == 5)
+    {
+        return pentomino[x][y];
+    }
+
     return sf::String();
 }
 
@@ -160,27 +165,41 @@ sf::String Game::tetromino[] =
                "....")
 };
 
+sf::String Game::triomino[] = {
+    //I
+    sf::String(".X."
+               ".X."
+               ".X."),
+    //L
+    sf::String(".X."
+               ".XX"
+               "..."),
+    //J
+    sf::String(".X."
+               "XX."
+               "...")
+};
+
 void Game::initBoard(int level)
 {
     std::cout << "initBoard " << level << std::endl;
-    if(level == 5)
+    if(level == 3)
     {
-        setPentomino();
-        if(pField)
-        {
-            delete [] pField;
-        }
-        pField = new unsigned char[nFieldWidth*nFieldHeight];
+        setTriomino();
     }
     else if(level == 4)
     {
         setTetromino();
-        if(pField)
-        {
-            delete [] pField;
-        }
-        pField = new unsigned char[nFieldWidth*nFieldHeight];
     }
+    else if(level == 5)
+    {
+        setPentomino();
+    }
+    if(pField)
+    {
+        delete [] pField;
+    }
+    pField = new unsigned char[nFieldWidth*nFieldHeight];
 
     for (int x = 0; x < nFieldWidth; x++) // Board Boundary
     {
@@ -213,6 +232,17 @@ void Game::setTetromino()
     COUNT_OF_BLOCKS = 4;
 }
 
+void Game::setTriomino()
+{
+    OFFSET_X = 250;
+    OFFSET_Y = 30;
+    COUNT_OF_PIECES = 3;
+    nFieldWidth = 8;
+    nFieldHeight = 15;
+    COUNT_OF_BLOCKS = 3;
+
+}
+
 unsigned char *Game::field() const
 {
     return pField;
@@ -221,7 +251,46 @@ unsigned char *Game::field() const
 int Game::rotate(int px, int py, int r)
 {
     int pi = 0;
-    if(COUNT_OF_BLOCKS == 4)
+    if(COUNT_OF_BLOCKS == 3)
+    {
+        switch(r%4)
+        {
+        case 0://0
+        {
+            //0  1   2
+            //3  4   5
+            //6  7   8
+            pi = py * COUNT_OF_BLOCKS + px;
+        }
+            break;
+        case 1://90
+        {
+            //6  3  0
+            //7  4  1
+            //8  5  2
+            pi = 6 + py - (px * COUNT_OF_BLOCKS);
+        }
+            break;
+        case 2: //180
+        {
+            //8   7   6
+            //5   4   3
+            //2   1   0
+            pi = 8 - (py * COUNT_OF_BLOCKS) - px;
+        }
+            break;
+        case 3://270
+        {
+
+            // 2  5  8
+            // 1  4  7
+            // 0  3  6
+            pi = 2 - py + (px * COUNT_OF_BLOCKS);
+        }
+            break;
+        }
+    }
+    else if(COUNT_OF_BLOCKS == 4)
     {
         switch(r%4)
         {

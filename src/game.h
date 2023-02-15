@@ -11,6 +11,7 @@ public:
     Game();
     static sf::String pentomino[16];
     static sf::String tetromino[7];
+    static sf::String triomino[3];
 
     int OFFSET_X;
     int OFFSET_Y;
@@ -35,6 +36,7 @@ public:
     void initBoard(int level);
     void setPentomino();
     void setTetromino();
+    void setTriomino();
 };
 
 #endif // GAME_H

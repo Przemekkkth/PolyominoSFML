@@ -36,6 +36,16 @@ MenuState::MenuState(StateStack& stack, Context context)
         requestStackPush(States::Game);
     });
 
+    auto playButton2 = std::make_shared<GUI::Button>(context);
+    playButton2->setPosition(400, 200);
+    playButton2->setText("Triomino");
+    playButton2->setCallback([this] ()
+    {
+        GameState::choosenLevel = 3;
+        requestStackPop();
+        requestStackPush(States::Game);
+    });
+
 
     auto exitButton = std::make_shared<GUI::Button>(context);
     exitButton->setPosition(100, 400);
@@ -47,6 +57,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 
     mGUIContainer.pack(playButton0);
     mGUIContainer.pack(playButton1);
+    mGUIContainer.pack(playButton2);
     //mGUIContainer.pack(settingsButton);
     mGUIContainer.pack(exitButton);
 
