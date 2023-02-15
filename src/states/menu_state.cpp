@@ -4,6 +4,7 @@
 //#include "../utils/utility.h"
 #include "../utils/resource_holder.h"
 #include "../SFX/music_player.h"
+#include "game_state.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
@@ -15,11 +16,22 @@ MenuState::MenuState(StateStack& stack, Context context)
     sf::Texture& texture = context.textures->get(Textures::TitleScreen);
     mBackgroundSprite.setTexture(texture);
 
-    auto playButton = std::make_shared<GUI::Button>(context);
-    playButton->setPosition(100, 300);
-    playButton->setText("Play");
-    playButton->setCallback([this] ()
+    auto playButton0 = std::make_shared<GUI::Button>(context);
+    playButton0->setPosition(20, 100);
+    playButton0->setText("Tetromino");
+    playButton0->setCallback([this] ()
     {
+        GameState::choosenLevel = 4;
+        requestStackPop();
+        requestStackPush(States::Game);
+    });
+
+    auto playButton1 = std::make_shared<GUI::Button>(context);
+    playButton1->setPosition(20, 200);
+    playButton1->setText("Pentomino");
+    playButton1->setCallback([this] ()
+    {
+        GameState::choosenLevel = 5;
         requestStackPop();
         requestStackPush(States::Game);
     });
@@ -33,7 +45,8 @@ MenuState::MenuState(StateStack& stack, Context context)
         requestStackPop();
     });
 
-    mGUIContainer.pack(playButton);
+    mGUIContainer.pack(playButton0);
+    mGUIContainer.pack(playButton1);
     //mGUIContainer.pack(settingsButton);
     mGUIContainer.pack(exitButton);
 

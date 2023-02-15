@@ -3,24 +3,25 @@
 #include <SFML/System/String.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/System/String.hpp>
 
 class Game
 {
 public:
     Game();
     static sf::String pentomino[16];
-    static sf::String tetrimino[7];
+    static sf::String tetromino[7];
 
-    constexpr static int OFFSET_X = 100;
-    constexpr static int OFFSET_Y = 50;
+    int OFFSET_X;
+    int OFFSET_Y;
 
-    constexpr static const int COUNT_OF_PIECES = 16;
-    constexpr static int nFieldWidth = 13;
-    constexpr static int nFieldHeight = 19;
-    constexpr static const int COUNT_OF_BLOCKS = 5;
+    int COUNT_OF_PIECES;
+    int nFieldWidth;
+    int nFieldHeight;
+    int COUNT_OF_BLOCKS;
 
     unsigned char *pField;
-
+    sf::String getElementOfPiece(int x, int y);
 
     unsigned char* field() const;
     int rotate(int px, int py, int r);
@@ -31,7 +32,9 @@ public:
 
     constexpr static const int ANIM_BLOCK = 17;
     constexpr static const int BOUNDARY_BLOCK = 18;
-    void initBoard();
+    void initBoard(int level);
+    void setPentomino();
+    void setTetromino();
 };
 
 #endif // GAME_H

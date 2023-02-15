@@ -38,7 +38,6 @@ class State
             SoundPlayer*		sounds;
         };
 
-
     public:
                             State(StateStack& stack, Context context);
         virtual				~State();

@@ -57,7 +57,7 @@ class World : private sf::NonCopyable
         int nCurrentPiece = 0;
         int nNextPiece = 0;
         int nCurrentRotation = 0;
-        int nCurrentX = Game::nFieldWidth / 2;
+        int nCurrentX = mGame.nFieldWidth / 2;
         int nCurrentY = 0;
         int nSpeed = 20;
         int nSpeedCount = 0;

@@ -1,14 +1,24 @@
 #include "game.h"
 #include <iostream>
+#include "../states/game_state.h"
 
 Game::Game()
     //: RESOLUTION(GRID_SIZE*nFieldWidth+3*OFFSET_X, GRID_SIZE*(nFieldHeight+5)+OFFSET_Y)
-    : RESOLUTION(660, 680)
+    : pField(nullptr), RESOLUTION(660, 680)
 {
-    std::cout << "GRID_SIZE*nFieldWidth+3*OFFSET_X " << GRID_SIZE*nFieldWidth+3*OFFSET_X <<
-                 "GRID_SIZE*(nFieldHeight+5)+OFFSET_Y " << GRID_SIZE*(nFieldHeight+5)+OFFSET_Y << std::endl;
-    pField = new unsigned char[nFieldWidth*nFieldHeight];
-    initBoard();
+}
+
+sf::String Game::getElementOfPiece(int x, int y)
+{
+    if(Game::COUNT_OF_BLOCKS == 5)
+    {
+        return pentomino[x][y];
+    }
+    else if(Game::COUNT_OF_BLOCKS == 4)
+    {
+        return tetromino[x][y];
+    }
+    return sf::String();
 }
 
 sf::String Game::pentomino[] =
@@ -111,7 +121,7 @@ sf::String Game::pentomino[] =
                      ".....")
 };
 
-sf::String Game::tetrimino[] =
+sf::String Game::tetromino[] =
 {
     //I
     sf::String("..X."
@@ -150,8 +160,28 @@ sf::String Game::tetrimino[] =
                "....")
 };
 
-void Game::initBoard()
+void Game::initBoard(int level)
 {
+    std::cout << "initBoard " << level << std::endl;
+    if(level == 5)
+    {
+        setPentomino();
+        if(pField)
+        {
+            delete [] pField;
+        }
+        pField = new unsigned char[nFieldWidth*nFieldHeight];
+    }
+    else if(level == 4)
+    {
+        setTetromino();
+        if(pField)
+        {
+            delete [] pField;
+        }
+        pField = new unsigned char[nFieldWidth*nFieldHeight];
+    }
+
     for (int x = 0; x < nFieldWidth; x++) // Board Boundary
     {
         for (int y = 0; y < nFieldHeight; y++)
@@ -159,6 +189,28 @@ void Game::initBoard()
             pField[y*nFieldWidth + x] = (x == 0 || x == nFieldWidth - 1 || y == nFieldHeight - 1) ? Game::BOUNDARY_BLOCK : 0;
         }
     }
+}
+
+void Game::setPentomino()
+{
+    OFFSET_X = 100;
+    OFFSET_Y = 10;
+
+    COUNT_OF_PIECES = 16;
+    nFieldWidth = 13;
+    nFieldHeight = 21;
+    COUNT_OF_BLOCKS = 5;
+}
+
+void Game::setTetromino()
+{
+    OFFSET_X = 150;
+    OFFSET_Y = 30;
+
+    COUNT_OF_PIECES = 7;
+    nFieldWidth = 10;
+    nFieldHeight = 20;
+    COUNT_OF_BLOCKS = 4;
 }
 
 unsigned char *Game::field() const
@@ -169,48 +221,93 @@ unsigned char *Game::field() const
 int Game::rotate(int px, int py, int r)
 {
     int pi = 0;
-    switch(r%4)
+    if(COUNT_OF_BLOCKS == 4)
     {
-    case 0://0
-    {
-        //0  1   2  3  4
-        //5  6   7  8  9
-        //10 11  12 13 14
-        //15 16  17 18 19
-        //20 21  22 23 24
-        pi = py * COUNT_OF_BLOCKS + px;
+        switch(r%4)
+        {
+        case 0://0
+        {
+            //0  1   2  3
+            //4  5   6  7
+            //8  9   10 11
+            //12 13  14 15
+            pi = py * COUNT_OF_BLOCKS + px;
+        }
+            break;
+        case 1://90
+        {
+            //  12  8  4  0
+            //  13  9  5  1
+            //  14 10  6  2
+            //  15 11  7  3
+            pi = 12 + py - (px * COUNT_OF_BLOCKS);
+        }
+            break;
+        case 2: //180
+        {
+            // 15  14  13  12
+            // 11  10   9   8
+            //  7   6   5   4
+            //  3   2   1   0
+            pi = 15 - (py * COUNT_OF_BLOCKS) - px;
+        }
+            break;
+        case 3://270
+        {
+            // 3  7  11  15
+            // 2  6  10  14
+            // 1  5   9  13
+            // 0  4   8  12
+            pi = 3 - py + (px * COUNT_OF_BLOCKS);
+        }
+            break;
+        }
     }
-        break;
-    case 1://90
+    else if(COUNT_OF_BLOCKS == 5)
     {
-        //20  15 10  5  0
-        //21  16 11  6  1
-        //22  17 12  7  2
-        //23  18 13  8  3
-        //24  19 14  9  4
-        pi = 20 + py - (px * COUNT_OF_BLOCKS);
-    }
-        break;
-    case 2: //180
-    {
-        //24   23  22  21  20
-        //19   18  17  16  15
-        //14   13  12  11  10
-        //9     8   7   6   5
-        //4     3   2   1   0
-        pi = 24 - (py * COUNT_OF_BLOCKS) - px;
-    }
-        break;
-    case 3://270
-    {
-        // 4  9  14  19  24
-        // 3  8  13  18  23
-        // 2  7  12  17  22
-        // 1  6  11  16  21
-        // 0  5  10  15  20
-        pi = 4 - py + (px * COUNT_OF_BLOCKS);
-    }
-        break;
+        switch(r%4)
+        {
+        case 0://0
+        {
+            //0  1   2  3  4
+            //5  6   7  8  9
+            //10 11  12 13 14
+            //15 16  17 18 19
+            //20 21  22 23 24
+            pi = py * COUNT_OF_BLOCKS + px;
+        }
+            break;
+        case 1://90
+        {
+            //20  15 10  5  0
+            //21  16 11  6  1
+            //22  17 12  7  2
+            //23  18 13  8  3
+            //24  19 14  9  4
+            pi = 20 + py - (px * COUNT_OF_BLOCKS);
+        }
+            break;
+        case 2: //180
+        {
+            //24   23  22  21  20
+            //19   18  17  16  15
+            //14   13  12  11  10
+            //9     8   7   6   5
+            //4     3   2   1   0
+            pi = 24 - (py * COUNT_OF_BLOCKS) - px;
+        }
+            break;
+        case 3://270
+        {
+            // 4  9  14  19  24
+            // 3  8  13  18  23
+            // 2  7  12  17  22
+            // 1  6  11  16  21
+            // 0  5  10  15  20
+            pi = 4 - py + (px * COUNT_OF_BLOCKS);
+        }
+            break;
+        }
     }
     return pi;
 }
@@ -236,7 +333,7 @@ bool Game::doesPieceFit(int nTetronimo, int nRotation, int nPosX, int nPosY)
                 if (nPosY + py >= 0 && nPosY + py < nFieldHeight)
                 {
                     // In Bounds so do collision check
-                    if (Game::pentomino[nTetronimo][pi] != '.' && pField[fi] != 0)
+                    if (getElementOfPiece(nTetronimo, pi) != '.' && pField[fi] != 0)
                         return false; // fail on first hit
                 }
             }

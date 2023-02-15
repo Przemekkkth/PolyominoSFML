@@ -2,12 +2,14 @@
 #include "../SFX/music_player.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 
+int GameState::choosenLevel = 4;
 GameState::GameState(StateStack& stack, Context context)
 : State(stack, context)
 , mWorld(*context.window, *context.fonts, *context.sounds)
 , mPlayer(*context.player)
 {
     mPlayer.setMissionStatus(Player::MissionRunning);
+
     // Play game theme
     //context.music->play(Music::MissionTheme);
 }

@@ -6,24 +6,6 @@
 #include <string>
 #include <algorithm>
 
-//using namespace std::placeholders;
-
-
-//struct AircraftMover
-//{
-//    AircraftMover(float vx, float vy)
-//    : velocity(vx, vy)
-//    {
-//    }
-
-//    void operator() (Aircraft& aircraft, sf::Time) const
-//    {
-//        aircraft.accelerate(velocity * aircraft.getMaxSpeed());
-//    }
-
-//    sf::Vector2f velocity;
-//};
-
 Player::Player()
 : mCurrentMissionStatus(MissionRunning)
 {
