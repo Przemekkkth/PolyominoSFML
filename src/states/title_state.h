@@ -18,7 +18,7 @@ class TitleState : public State
 
 
     private:
-        sf::Sprite			mBackgroundSprite;
+        sf::Sprite mTitleSprite, mSFMLlogoSprite;
         sf::Text			mText;
 
         bool				mShowText;

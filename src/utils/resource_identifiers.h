@@ -18,6 +18,7 @@ namespace Textures
         TitleScreen,
         PolyominoString,
         Buttons,
+        SFMLlogo,
         Explosion,
         Particle,
         FinishLine,

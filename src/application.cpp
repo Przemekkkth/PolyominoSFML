@@ -28,6 +28,7 @@ Application::Application()
     mTextures.load(Textures::TitleScreen,	"Media/Textures/TitleScreen.png");
     mTextures.load(Textures::Buttons,		"Media/Textures/Buttons.png");
     mTextures.load(Textures::PolyominoString, "res/title.png");
+    mTextures.load(Textures::SFMLlogo, "res/sfml-logo-small.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Main));
     mStatisticsText.setPosition(5.f, 5.f);
