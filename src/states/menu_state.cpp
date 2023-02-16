@@ -13,11 +13,8 @@ MenuState::MenuState(StateStack& stack, Context context)
     : State(stack, context)
     , mGUIContainer()
 {
-    sf::Texture& texture = context.textures->get(Textures::TitleScreen);
-    mBackgroundSprite.setTexture(texture);
-
-    sf::Texture& ptexture = context.textures->get(Textures::PolyominoString);
-    mTitleStringSprite.setTexture(ptexture);
+    sf::Texture& texture = context.textures->get(Textures::PolyominoString);
+    mTitleStringSprite.setTexture(texture);
     mTitleStringSprite.setPosition(30, 30);
 
     auto monominoButton = std::make_shared<GUI::Button>(context);

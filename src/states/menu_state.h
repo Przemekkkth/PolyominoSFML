@@ -19,8 +19,7 @@ class MenuState : public State
 
 
     private:
-        sf::Sprite				mBackgroundSprite;
-        sf::Sprite mTitleStringSprite;
+        sf::Sprite              mTitleStringSprite;
         GUI::Container			mGUIContainer;
 };
 
