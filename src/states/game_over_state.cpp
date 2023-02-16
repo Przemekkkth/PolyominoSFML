@@ -21,6 +21,8 @@ GameOverState::GameOverState(StateStack& stack, Context context)
     mGameOverText.setString("Game Over!");
 
     mGameOverText.setCharacterSize(70);
+    mGameOverText.setOrigin(mGameOverText.getLocalBounds().width/2.0f,
+                            mGameOverText.getLocalBounds().height/2.0f);
     //centerOrigin(mGameOverText);
     mGameOverText.setPosition(0.5f * windowSize.x, 0.4f * windowSize.y);
 }
