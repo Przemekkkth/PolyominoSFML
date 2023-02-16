@@ -1,28 +1,28 @@
-#include "game.h"
+#include "polyomino.h"
 #include <iostream>
 #include "../states/game_state.h"
 
-Game::Game()
+Polyomino::Polyomino()
     //: RESOLUTION(GRID_SIZE*nFieldWidth+3*OFFSET_X, GRID_SIZE*(nFieldHeight+5)+OFFSET_Y)
     : pField(nullptr), RESOLUTION(660, 680)
 {
 }
 
-sf::String Game::getElementOfPiece(int x, int y)
+sf::String Polyomino::getElementOfPiece(int x, int y)
 {
-    if(Game::COUNT_OF_BLOCKS == 2)
+    if(Polyomino::COUNT_OF_BLOCKS == 2)
     {
         return domino[x][y];
     }
-    else if(Game::COUNT_OF_BLOCKS == 3)
+    else if(Polyomino::COUNT_OF_BLOCKS == 3)
     {
         return triomino[x][y];
     }
-    else if(Game::COUNT_OF_BLOCKS == 4)
+    else if(Polyomino::COUNT_OF_BLOCKS == 4)
     {
         return tetromino[x][y];
     }
-    else if(Game::COUNT_OF_BLOCKS == 5)
+    else if(Polyomino::COUNT_OF_BLOCKS == 5)
     {
         return pentomino[x][y];
     }
@@ -30,7 +30,7 @@ sf::String Game::getElementOfPiece(int x, int y)
     return sf::String();
 }
 
-sf::String Game::pentomino[] =
+sf::String Polyomino::pentomino[] =
 {
     //F
     sf::String      ("....."
@@ -130,7 +130,7 @@ sf::String Game::pentomino[] =
                      ".....")
 };
 
-sf::String Game::tetromino[] =
+sf::String Polyomino::tetromino[] =
 {
     //I
     sf::String("..X."
@@ -169,7 +169,7 @@ sf::String Game::tetromino[] =
                "....")
 };
 
-sf::String Game::triomino[] = {
+sf::String Polyomino::triomino[] = {
     //I
     sf::String(".X."
                ".X."
@@ -184,17 +184,17 @@ sf::String Game::triomino[] = {
                "...")
 };
 
-sf::String Game::domino[] =
+sf::String Polyomino::domino[] =
 {
     sf::String(".X"
                ".X")
 };
 
-sf::String Game::monomino[] = {
+sf::String Polyomino::monomino[] = {
   sf::String("X")
 };
 
-void Game::initBoard(int level)
+void Polyomino::initBoard(int level)
 {
     std::cout << "initBoard " << level << std::endl;
     if(level == 1)
@@ -221,76 +221,76 @@ void Game::initBoard(int level)
     {
         delete [] pField;
     }
-    pField = new unsigned char[nFieldWidth*nFieldHeight];
+    pField = new unsigned char[FIELD_WIDTH*FIELD_HEIGHT];
 
-    for (int x = 0; x < nFieldWidth; x++) // Board Boundary
+    for (int x = 0; x < FIELD_WIDTH; x++) // Board Boundary
     {
-        for (int y = 0; y < nFieldHeight; y++)
+        for (int y = 0; y < FIELD_HEIGHT; y++)
         {
-            pField[y*nFieldWidth + x] = (x == 0 || x == nFieldWidth - 1 || y == nFieldHeight - 1) ? Game::BOUNDARY_BLOCK : 0;
+            pField[y*FIELD_WIDTH + x] = (x == 0 || x == FIELD_WIDTH - 1 || y == FIELD_HEIGHT - 1) ? Polyomino::BOUNDARY_BLOCK : 0;
         }
     }
 }
 
-void Game::setPentomino()
+void Polyomino::setPentomino()
 {
     OFFSET_X = 100;
     OFFSET_Y = 10;
 
     COUNT_OF_PIECES = 16;
-    nFieldWidth = 13;
-    nFieldHeight = 21;
+    FIELD_WIDTH = 13;
+    FIELD_HEIGHT = 21;
     COUNT_OF_BLOCKS = 5;
 }
 
-void Game::setTetromino()
+void Polyomino::setTetromino()
 {
     OFFSET_X = 150;
     OFFSET_Y = 30;
 
     COUNT_OF_PIECES = 7;
-    nFieldWidth = 10;
-    nFieldHeight = 20;
+    FIELD_WIDTH = 10;
+    FIELD_HEIGHT = 20;
     COUNT_OF_BLOCKS = 4;
 }
 
-void Game::setTriomino()
+void Polyomino::setTriomino()
 {
     OFFSET_X = 250;
     OFFSET_Y = 130;
     COUNT_OF_PIECES = 3;
-    nFieldWidth = 8;
-    nFieldHeight = 15;
+    FIELD_WIDTH = 8;
+    FIELD_HEIGHT = 15;
     COUNT_OF_BLOCKS = 3;
 
 }
 
-void Game::setDomino()
+void Polyomino::setDomino()
 {
     OFFSET_X = 300;
     OFFSET_Y = 200;
     COUNT_OF_PIECES = 1;
-    nFieldWidth = 6;
-    nFieldHeight = 12;
+    FIELD_WIDTH = 6;
+    FIELD_HEIGHT = 12;
     COUNT_OF_BLOCKS = 2;
 }
 
-void Game::setMonomino()
+void Polyomino::setMonomino()
 {
     OFFSET_X = 340;
     OFFSET_Y = 200;
     COUNT_OF_PIECES = 1;
-    nFieldWidth = 5;
-    nFieldHeight = 10;
+    FIELD_WIDTH = 5;
+    FIELD_HEIGHT = 10;
     COUNT_OF_BLOCKS = 1;
 }
 
-unsigned char *Game::field() const
+unsigned char *Polyomino::field() const
 {
     return pField;
 }
 
-int Game::rotate(int px, int py, int r)
+int Polyomino::rotate(int px, int py, int r)
 {
     int pi = 0;
     if(COUNT_OF_BLOCKS == 2)
@@ -457,7 +457,7 @@ int Game::rotate(int px, int py, int r)
     return pi;
 }
 
-bool Game::doesPieceFit(int nTetronimo, int nRotation, int nPosX, int nPosY)
+bool Polyomino::doesPieceFit(int nBlock, int nRotation, int nPosX, int nPosY)
 {
     // All Field cells >0 are occupied
     for (int px = 0; px < COUNT_OF_BLOCKS; px++)
@@ -467,18 +467,18 @@ bool Game::doesPieceFit(int nTetronimo, int nRotation, int nPosX, int nPosY)
             int pi = rotate(px, py, nRotation);
 
             // Get index into field
-            int fi = (nPosY + py) * nFieldWidth + (nPosX + px);
+            int fi = (nPosY + py) * FIELD_WIDTH + (nPosX + px);
 
             // Check that test is in bounds. Note out of bounds does
             // not necessarily mean a fail, as the long vertical piece
             // can have cells that lie outside the boundary, so we'll
             // just ignore them
-            if (nPosX + px >= 0 && nPosX + px < nFieldWidth)
+            if (nPosX + px >= 0 && nPosX + px < FIELD_WIDTH)
             {
-                if (nPosY + py >= 0 && nPosY + py < nFieldHeight)
+                if (nPosY + py >= 0 && nPosY + py < FIELD_HEIGHT)
                 {
                     // In Bounds so do collision check
-                    if (getElementOfPiece(nTetronimo, pi) != '.' && pField[fi] != 0)
+                    if (getElementOfPiece(nBlock, pi) != '.' && pField[fi] != 0)
                         return false; // fail on first hit
                 }
             }

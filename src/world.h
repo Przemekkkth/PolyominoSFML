@@ -8,7 +8,7 @@
 #include <SFML/Graphics/View.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include "game.h"
+#include "polyomino.h"
 
 #include <array>
 #include <queue>
@@ -25,7 +25,7 @@ class World : private sf::NonCopyable
 {
     public:
                                             World(sf::RenderWindow& outputTarget, FontHolder& fonts, SoundPlayer& sounds);
-        void								update(sf::Time dt);
+        void								update(sf::Time);
         void								draw();
 
         void processInput(const sf::Event& event);
@@ -41,9 +41,6 @@ class World : private sf::NonCopyable
         FontHolder&							mFonts;
         SoundPlayer&						mSounds;
 
-
-
-
         void render();
         void drawField();
         void drawCurrentPiece();
@@ -51,12 +48,12 @@ class World : private sf::NonCopyable
         void drawScore();
         void handlePlayerInput();
 
-        Game mGame;
+        Polyomino mGame;
         bool bMoveLeft, bMoveRight, bMoveDown, bRotate;
         int nCurrentPiece = 0;
         int nNextPiece = 0;
         int nCurrentRotation = 0;
-        int nCurrentX = mGame.nFieldWidth / 2;
+        int nCurrentX = mGame.FIELD_WIDTH / 2;
         int nCurrentY = 0;
         int nSpeed = 20;
         int nSpeedCount = 0;

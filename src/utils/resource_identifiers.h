@@ -25,7 +25,6 @@ namespace Fonts
     enum ID
     {
         Main,
-        Arial
     };
 }
 

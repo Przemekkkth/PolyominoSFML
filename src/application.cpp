@@ -23,7 +23,7 @@ Application::Application()
 {
     mWindow.setKeyRepeatEnabled(false);
 
-    mFonts.load(Fonts::Main, 	"Media/Sansation.ttf");
+    mFonts.load(Fonts::Main, 	"res/minecraft.ttf");
 
     mTextures.load(Textures::Buttons,		"res/buttons.png");
     mTextures.load(Textures::PolyominoString, "res/title.png");

@@ -20,7 +20,7 @@ World::World(sf::RenderWindow& outputTarget, FontHolder& fonts, SoundPlayer& sou
     mGame.initBoard(GameState::choosenLevel);
     loadTextures();
     srand(time(0));
-    nCurrentX = mGame.nFieldWidth / 2;
+    nCurrentX = mGame.FIELD_WIDTH / 2;
     nCurrentY = 0;
     nCurrentRotation = 0;
     nCurrentPiece = rand() % mGame.COUNT_OF_PIECES;
@@ -29,7 +29,7 @@ World::World(sf::RenderWindow& outputTarget, FontHolder& fonts, SoundPlayer& sou
     isGenerateNewPiece = true;
 }
 
-void World::update(sf::Time dt)
+void World::update(sf::Time)
 {
     if(!bGameOver)
     {
@@ -66,7 +66,7 @@ void World::update(sf::Time dt)
                     {
                         if(mGame.getElementOfPiece(nCurrentPiece, mGame.rotate(px, py, nCurrentRotation)) != '.')
                         {
-                            mGame.field()[(nCurrentY + py) * mGame.nFieldWidth + (nCurrentX + px)] = nCurrentPiece+1;
+                            mGame.field()[(nCurrentY + py) * mGame.FIELD_WIDTH + (nCurrentX + px)] = nCurrentPiece+1;
                         }
 
                     }
@@ -76,21 +76,21 @@ void World::update(sf::Time dt)
                 // Check for lines
                 for (int py = 0; py < mGame.COUNT_OF_BLOCKS; py++)
                 {
-                    if(nCurrentY + py < mGame.nFieldHeight - 1)
+                    if(nCurrentY + py < mGame.FIELD_HEIGHT - 1)
                     {
                         bool bLine = true;
-                        for (int px = 1; px < mGame.nFieldWidth - 1; px++)
+                        for (int px = 1; px < mGame.FIELD_WIDTH - 1; px++)
                         {
-                            bLine &= (mGame.field()[(nCurrentY + py) * mGame.nFieldWidth + px]) != 0;
+                            bLine &= (mGame.field()[(nCurrentY + py) * mGame.FIELD_WIDTH + px]) != 0;
                         }
 
 
                         if (bLine)
                         {
                             // Remove Line, set to =
-                            for (int px = 1; px < mGame.nFieldWidth - 1; px++)
+                            for (int px = 1; px < mGame.FIELD_WIDTH - 1; px++)
                             {
-                                mGame.field()[(nCurrentY + py) * mGame.nFieldWidth + px] = Game::ANIM_BLOCK;
+                                mGame.field()[(nCurrentY + py) * mGame.FIELD_WIDTH + px] = Polyomino::ANIM_BLOCK;
                             }
 
                             mTarget.clear();
@@ -125,10 +125,10 @@ void World::update(sf::Time dt)
     if (!vLines.empty())
     {
         for (auto &v : vLines)
-            for (int px = 1; px < mGame.nFieldWidth - 1; px++)
+            for (int px = 1; px < mGame.FIELD_WIDTH - 1; px++)
             {
                 for (int py = v; py > 0; py--)
-                    mGame.field()[py * mGame.nFieldWidth + px] = mGame.field()[(py - 1) * mGame.nFieldWidth + px];
+                    mGame.field()[py * mGame.FIELD_WIDTH + px] = mGame.field()[(py - 1) * mGame.FIELD_WIDTH + px];
                 mGame.field()[px] = 0;
             }
 
@@ -141,7 +141,7 @@ void World::update(sf::Time dt)
         isGenerateNewPiece = false;
         bMoveDown = false;
         mTarget.setKeyRepeatEnabled(false);
-        nCurrentX = mGame.nFieldWidth / 2;
+        nCurrentX = mGame.FIELD_WIDTH / 2;
         nCurrentY = 0;
         nCurrentPiece = nNextPiece;
         nNextPiece = rand() % mGame.COUNT_OF_PIECES;
@@ -241,14 +241,14 @@ void World::render()
 
 void World::drawField()
 {
-    for (int x = 0; x < mGame.nFieldWidth; x++)
+    for (int x = 0; x < mGame.FIELD_WIDTH; x++)
     {
-        for (int y = 0; y < mGame.nFieldHeight; y++)
+        for (int y = 0; y < mGame.FIELD_HEIGHT; y++)
         {
             sf::Sprite sprite;
             sprite.setTexture(mTextures.get(Textures::Blocks));
-            sprite.setTextureRect(sf::IntRect(int(mGame.pField[y*mGame.nFieldWidth + x])*Game::GRID_SIZE, 0, Game::GRID_SIZE, Game::GRID_SIZE));
-            sprite.setPosition(x*Game::GRID_SIZE + mGame.OFFSET_X/2, y*Game::GRID_SIZE + mGame.OFFSET_Y);
+            sprite.setTextureRect(sf::IntRect(int(mGame.pField[y*mGame.FIELD_WIDTH + x])*Polyomino::GRID_SIZE, 0, Polyomino::GRID_SIZE, Polyomino::GRID_SIZE));
+            sprite.setPosition(x*Polyomino::GRID_SIZE + mGame.OFFSET_X/2, y*Polyomino::GRID_SIZE + mGame.OFFSET_Y);
             mTarget.draw(sprite);
         }
     }
@@ -265,8 +265,8 @@ void World::drawCurrentPiece()
             {
                 sf::Sprite sprite;
                 sprite.setTexture(mTextures.get(Textures::Blocks));
-                sprite.setTextureRect(sf::IntRect((nCurrentPiece+1)*Game::GRID_SIZE, 0, Game::GRID_SIZE, Game::GRID_SIZE));
-                sprite.setPosition((nCurrentX + px)*Game::GRID_SIZE + mGame.OFFSET_X/2 , (nCurrentY + py)*Game::GRID_SIZE + mGame.OFFSET_Y);
+                sprite.setTextureRect(sf::IntRect((nCurrentPiece+1)*Polyomino::GRID_SIZE, 0, Polyomino::GRID_SIZE, Polyomino::GRID_SIZE));
+                sprite.setPosition((nCurrentX + px)*Polyomino::GRID_SIZE + mGame.OFFSET_X/2 , (nCurrentY + py)*Polyomino::GRID_SIZE + mGame.OFFSET_Y);
                 mTarget.draw(sprite);
             }
 
@@ -280,7 +280,7 @@ void World::drawNextPiece()
     nextText.setFont(mFonts.get(Fonts::ID::Main));
     nextText.setCharacterSize(20);
     nextText.setFillColor(sf::Color::White);
-    nextText.setPosition(mGame.RESOLUTION.x - (mGame.COUNT_OF_BLOCKS-1)*Game::GRID_SIZE, mGame.OFFSET_Y+75);
+    nextText.setPosition(mGame.RESOLUTION.x - (mGame.COUNT_OF_BLOCKS-1)*Polyomino::GRID_SIZE, mGame.OFFSET_Y+75);
     nextText.setStyle(sf::Text::Bold);
     nextText.setString("Next: ");
     mTarget.draw(nextText);
@@ -294,8 +294,8 @@ void World::drawNextPiece()
             {
                 sf::Sprite sprite;
                 sprite.setTexture(mTextures.get(Textures::Blocks));
-                sprite.setTextureRect(sf::IntRect((nNextPiece+1)*Game::GRID_SIZE, 0, Game::GRID_SIZE, Game::GRID_SIZE));
-                sprite.setPosition(px*Game::GRID_SIZE + mGame.RESOLUTION.x - (mGame.COUNT_OF_BLOCKS+1)*Game::GRID_SIZE, (py)*Game::GRID_SIZE + mGame.OFFSET_Y+100);
+                sprite.setTextureRect(sf::IntRect((nNextPiece+1)*Polyomino::GRID_SIZE, 0, Polyomino::GRID_SIZE, Polyomino::GRID_SIZE));
+                sprite.setPosition(px*Polyomino::GRID_SIZE + mGame.RESOLUTION.x - (mGame.COUNT_OF_BLOCKS+1)*Polyomino::GRID_SIZE, (py)*Polyomino::GRID_SIZE + mGame.OFFSET_Y+100);
                 mTarget.draw(sprite);
             }
 

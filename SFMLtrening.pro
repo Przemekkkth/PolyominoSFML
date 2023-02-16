@@ -18,9 +18,9 @@ SOURCES += \
     src/SFX/music_player.cpp \
     src/SFX/sound_player.cpp \
     src/application.cpp \
-    src/game.cpp \
     src/main.cpp \
     src/player.cpp \
+    src/polyomino.cpp \
     src/states/game_over_state.cpp \
     src/states/game_state.cpp \
     src/states/menu_state.cpp \
@@ -39,8 +39,8 @@ HEADERS += \
     src/SFX/sound_player.h \
     src/application.h \
     src/const/state_identifiers.h \
-    src/game.h \
     src/player.h \
+    src/polyomino.h \
     src/states/game_over_state.h \
     src/states/game_state.h \
     src/states/menu_state.h \
