@@ -20,12 +20,15 @@ PauseState::PauseState(StateStack& stack, Context context)
     mPausedText.setFont(font);
     mPausedText.setString("Game Paused");
     mPausedText.setCharacterSize(70);
-    //centerOrigin(mPausedText);
+    mPausedText.setOrigin(mPausedText.getLocalBounds().width/2.0f,
+                          mPausedText.getLocalBounds().height/2.0f);
     mPausedText.setPosition(0.5f * viewSize.x, 0.4f * viewSize.y);
 
     mInstructionText.setFont(font);
     mInstructionText.setString("(Press Backspace to return to the main menu)");
     //centerOrigin(mInstructionText);
+    mInstructionText.setOrigin(mInstructionText.getLocalBounds().width/2.0f,
+                          mInstructionText.getLocalBounds().height/2.0f);
     mInstructionText.setPosition(0.5f * viewSize.x, 0.6f * viewSize.y);
 
     getContext().music->setPaused(true);
