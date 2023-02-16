@@ -49,7 +49,6 @@ class World : private sf::NonCopyable
         void drawCurrentPiece();
         void drawNextPiece();
         void drawScore();
-        void drawGameOverText();
         void handlePlayerInput();
 
         Game mGame;

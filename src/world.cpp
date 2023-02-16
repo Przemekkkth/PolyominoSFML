@@ -242,10 +242,6 @@ void World::render()
     drawCurrentPiece();
     drawNextPiece();
     drawScore();
-    if(bGameOver)
-    {
-        drawGameOverText();
-    }
 }
 
 void World::drawField()
@@ -320,20 +316,6 @@ void World::drawScore()
     text.setFillColor(sf::Color::White);
     text.setString(sf::String(std::string("Score: ") + std::to_string(nScore)));
     text.setPosition(mGame.RESOLUTION.x-text.getLocalBounds().width, 0);
-    mTarget.draw(text);
-}
-
-void World::drawGameOverText()
-{
-    sf::Text text;
-    text.setFont(mFonts.get(Fonts::ID::Main));
-    text.setFillColor(sf::Color::Red);
-    text.setStyle(sf::Text::Bold);
-    text.setString("Game Over");
-    text.setCharacterSize(100);
-    text.setOrigin(text.getLocalBounds().width/2, text.getLocalBounds().height/2);
-    text.setPosition(mGame.RESOLUTION.x/2, mGame.RESOLUTION.y/2);
-
     mTarget.draw(text);
 }
 
