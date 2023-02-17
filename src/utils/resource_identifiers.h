@@ -32,8 +32,7 @@ namespace SoundEffect
 {
     enum ID
     {
-        FilledRow,
-        Button,
+        FilledRow
     };
 }
 
