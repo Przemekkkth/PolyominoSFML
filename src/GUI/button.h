@@ -37,7 +37,8 @@ class Button : public Component
     public:
                                 Button(State::Context context);
         void					setCallback(Callback callback);
-        void					setText(const std::string& text);
+        void					setText(const std::string& text, sf::Text::Style style= sf::Text::Regular);
+        void                    setTextColor(sf::Color color);
         void					setToggle(bool flag);
 
         virtual bool			isSelectable() const;

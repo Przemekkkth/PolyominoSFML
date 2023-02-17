@@ -196,7 +196,6 @@ sf::String Polyomino::monomino[] = {
 
 void Polyomino::initBoard(int level)
 {
-    std::cout << "initBoard " << level << std::endl;
     if(level == 1)
     {
         setMonomino();

@@ -15,6 +15,8 @@
 class Application
 {
     public:
+        static bool IS_PLAY_SOUND;
+        static bool IS_PLAY_MUSIC;
                                 Application();
         void					run();
 

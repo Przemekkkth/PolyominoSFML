@@ -11,6 +11,9 @@
 
 const sf::Time Application::TimePerFrame = sf::seconds(1.f/60.f);
 
+bool Application::IS_PLAY_SOUND = true;
+bool Application::IS_PLAY_MUSIC = true;
+
 Application::Application()
 : mWindow(sf::VideoMode(660, 680), "Graphics", sf::Style::Close)
 , mTextures()

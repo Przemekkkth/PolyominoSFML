@@ -6,8 +6,7 @@ MusicPlayer::MusicPlayer()
 , mFilenames()
 , mVolume(100.f)
 {
-    mFilenames[Music::MenuTheme]    = "Media/Music/MenuTheme.ogg";
-    mFilenames[Music::MissionTheme] = "Media/Music/MissionTheme.ogg";
+    mFilenames[Music::MenuTheme]    = "res/menu_theme.wav";
 }
 
 void MusicPlayer::play(Music::ID theme)
@@ -30,6 +29,11 @@ void MusicPlayer::stop()
 void MusicPlayer::setVolume(float volume)
 {
     mVolume = volume;
+}
+
+sf::SoundSource::Status MusicPlayer::status()
+{
+    return mMusic.getStatus();
 }
 
 void MusicPlayer::setPaused(bool paused)

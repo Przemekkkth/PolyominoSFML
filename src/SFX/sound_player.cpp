@@ -1,7 +1,7 @@
 #include "sound_player.h"
 
 #include <SFML/Audio/Listener.hpp>
-
+#include "../application.h"
 #include <cmath>
 
 
@@ -19,25 +19,27 @@ SoundPlayer::SoundPlayer()
 : mSoundBuffers()
 , mSounds()
 {
-    mSoundBuffers.load(SoundEffect::AlliedGunfire,	"Media/Sound/AlliedGunfire.wav");
-    mSoundBuffers.load(SoundEffect::EnemyGunfire,	"Media/Sound/EnemyGunfire.wav");
-    mSoundBuffers.load(SoundEffect::Explosion1,		"Media/Sound/Explosion1.wav");
-    mSoundBuffers.load(SoundEffect::Explosion2,		"Media/Sound/Explosion2.wav");
-    mSoundBuffers.load(SoundEffect::LaunchMissile,	"Media/Sound/LaunchMissile.wav");
-    mSoundBuffers.load(SoundEffect::CollectPickup,	"Media/Sound/CollectPickup.wav");
     mSoundBuffers.load(SoundEffect::Button,			"Media/Sound/Button.wav");
-
+    mSoundBuffers.load(SoundEffect::FilledRow,    "res/filled_row.wav");
     // Listener points towards the screen (default in SFML)
     sf::Listener::setDirection(0.f, 0.f, -1.f);
 }
 
 void SoundPlayer::play(SoundEffect::ID effect)
 {
+    if(!Application::IS_PLAY_SOUND)
+    {
+        return;
+    }
     play(effect, getListenerPosition());
 }
 
 void SoundPlayer::play(SoundEffect::ID effect, sf::Vector2f position)
 {
+    if(!Application::IS_PLAY_SOUND)
+    {
+        return;
+    }
     mSounds.push_back(sf::Sound());
     sf::Sound& sound = mSounds.back();
 

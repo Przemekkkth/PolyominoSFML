@@ -97,6 +97,7 @@ void World::update(sf::Time)
                             drawField();
                             mTarget.display();
                             sf::sleep(sf::milliseconds(50));
+                            mSounds.play(SoundEffect::FilledRow);
 
 
                             vLines.push_back(nCurrentY + py);

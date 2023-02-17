@@ -1,13 +1,14 @@
 #include "menu_state.h"
 
 #include "../GUI/button.h"
-//#include "../utils/utility.h"
 #include "../utils/resource_holder.h"
 #include "../SFX/music_player.h"
+#include "../application.h"
 #include "game_state.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
+#include <iostream>
 
 MenuState::MenuState(StateStack& stack, Context context)
     : State(stack, context)
@@ -67,24 +68,82 @@ MenuState::MenuState(StateStack& stack, Context context)
         requestStackPush(States::Game);
     });
 
+    auto musicButton = std::make_shared<GUI::Button>(context);
+    musicButton->setPosition(20, 575);
+    musicButton->setText("Music");
+    musicButton->setCallback([this, musicButton](){
+        Application::IS_PLAY_MUSIC = !Application::IS_PLAY_MUSIC;
+        if(Application::IS_PLAY_MUSIC)
+        {
+            getContext().music->play(Music::MenuTheme);
+            musicButton->setTextColor(sf::Color::White);
+            musicButton->setText("Music", sf::Text::Regular);
+        }
+        else
+        {
+            getContext().music->stop();
+            musicButton->setTextColor(sf::Color::Red);
+            musicButton->setText("Music", sf::Text::StrikeThrough);
+        }
+    });
+    if(!Application::IS_PLAY_MUSIC)
+    {
+        musicButton->setTextColor(sf::Color::Red);
+        musicButton->setText("Music", sf::Text::StrikeThrough);
+    }
+
+    auto soundButton = std::make_shared<GUI::Button>(context);
+    soundButton->setPosition(230, 575);
+    soundButton->setText("Sound");
+    soundButton->setCallback([soundButton] ()
+    {
+        Application::IS_PLAY_SOUND = !Application::IS_PLAY_SOUND;
+        if(Application::IS_PLAY_SOUND)
+        {
+            soundButton->setTextColor(sf::Color::White);
+            soundButton->setText("Sound", sf::Text::Regular);
+        }
+        else
+        {
+            soundButton->setTextColor(sf::Color::Red);
+            soundButton->setText("Sound", sf::Text::StrikeThrough);
+        }
+    });
+    if(!Application::IS_PLAY_SOUND)
+    {
+        soundButton->setTextColor(sf::Color::Red);
+        soundButton->setText("Sound", sf::Text::StrikeThrough);
+    }
+
+
     auto exitButton = std::make_shared<GUI::Button>(context);
-    exitButton->setPosition(230, 575);
+    exitButton->setPosition(440, 575);
     exitButton->setText("Exit");
     exitButton->setCallback([this] ()
     {
         requestStackPop();
     });
 
+
+
     mGUIContainer.pack(monominoButton);
     mGUIContainer.pack(dominoButton);
     mGUIContainer.pack(triominoButton);
     mGUIContainer.pack(tetrominoButton);
     mGUIContainer.pack(pentominoButton);
-    //mGUIContainer.pack(settingsButton);
+    mGUIContainer.pack(musicButton);
+    mGUIContainer.pack(soundButton);
     mGUIContainer.pack(exitButton);
 
-    // Play menu theme
-    //context.music->play(Music::MenuTheme);
+    // Play music theme
+    if(Application::IS_PLAY_MUSIC)
+    {
+       context.music->play(Music::MenuTheme);
+    }
+    else
+    {
+        context.music->stop();
+    }
 }
 
 void MenuState::draw()

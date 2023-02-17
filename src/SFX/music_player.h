@@ -21,7 +21,7 @@ class MusicPlayer : private sf::NonCopyable
         void						setPaused(bool paused);
         void						setVolume(float volume);
 
-
+        sf::Music::Status           status();
     private:
         sf::Music							mMusic;
         std::map<Music::ID, std::string>	mFilenames;

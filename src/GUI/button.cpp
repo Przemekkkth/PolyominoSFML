@@ -28,11 +28,17 @@ void Button::setCallback(Callback callback)
     mCallback = std::move(callback);
 }
 
-void Button::setText(const std::string& text)
+void Button::setText(const std::string& text, sf::Text::Style style)
 {
     mText.setString(text);
+    mText.setStyle(style);
     sf::FloatRect bounds = mText.getLocalBounds();
     mText.setOrigin(std::floor(bounds.left + bounds.width / 2.f), std::floor(bounds.top + bounds.height / 2.f));
+}
+
+void Button::setTextColor(sf::Color color)
+{
+    mText.setFillColor(color);
 }
 
 void Button::setToggle(bool flag)
