@@ -1,5 +1,4 @@
 #include "pause_state.h"
-//#include "../utils/utility.h"
 #include "../utils/resource_holder.h"
 #include "../SFX/music_player.h"
 

@@ -33,7 +33,6 @@ class World : private sf::NonCopyable
 
     private:
         void								loadTextures();
-        void								updateSounds();
 
     private:
         sf::RenderWindow&					mTarget;

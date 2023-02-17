@@ -4,12 +4,9 @@
 #include "component.h"
 #include "../utils/resource_identifiers.h"
 #include "../utils/resource_holder.h"
-//#include "../SFX/sound_player.h"
 #include "../states/state.h"
-
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
-
 #include <vector>
 #include <string>
 #include <memory>

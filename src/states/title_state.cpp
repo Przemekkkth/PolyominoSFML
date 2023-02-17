@@ -1,8 +1,5 @@
 #include "title_state.h"
-
-//#include "../utils/utility.h"
 #include "../utils/resource_holder.h"
-
 #include <SFML/Graphics/RenderWindow.hpp>
 
 
@@ -12,7 +9,6 @@ TitleState::TitleState(StateStack& stack, Context context)
 , mShowText(true)
 , mTextEffectTime(sf::Time::Zero)
 {
-    //mBackgroundSprite.setTexture(context.textures->get(Textures::TitleScreen));
     mTitleSprite.setTexture(context.textures->get(Textures::PolyominoString));
     mTitleSprite.setPosition(30, 30);
 

@@ -152,7 +152,6 @@ void MenuState::draw()
 
     window.setView(window.getDefaultView());
 
-    //window.draw(mBackgroundSprite);
     window.draw(mTitleStringSprite);
     window.draw(mGUIContainer);
 }

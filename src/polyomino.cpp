@@ -3,7 +3,6 @@
 #include "../states/game_state.h"
 
 Polyomino::Polyomino()
-    //: RESOLUTION(GRID_SIZE*nFieldWidth+3*OFFSET_X, GRID_SIZE*(nFieldHeight+5)+OFFSET_Y)
     : pField(nullptr), RESOLUTION(660, 680)
 {
 }

@@ -1,7 +1,4 @@
 #include "game_over_state.h"
-
-//#include "../utils/utility.h"
-//#include "player.h"
 #include "../utils/resource_holder.h"
 
 #include <SFML/Graphics/RectangleShape.hpp>

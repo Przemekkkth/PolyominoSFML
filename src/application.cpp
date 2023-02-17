@@ -1,6 +1,5 @@
 #include "application.h"
 
-//#include "Utilities/utility.h"
 #include "const/state_identifiers.h"
 #include "states/state.h"
 #include "states/title_state.h"
@@ -15,7 +14,7 @@ bool Application::IS_PLAY_SOUND = true;
 bool Application::IS_PLAY_MUSIC = true;
 
 Application::Application()
-: mWindow(sf::VideoMode(660, 680), "Graphics", sf::Style::Close)
+: mWindow(sf::VideoMode(660, 680), "Polyomino SFML", sf::Style::Close)
 , mTextures()
 , mFonts()
 , mPlayer()
@@ -61,7 +60,6 @@ void Application::run()
                 mWindow.close();
         }
 
-        updateStatistics(dt);
         render();
     }
 }
@@ -93,19 +91,6 @@ void Application::render()
     mWindow.draw(mStatisticsText);
 
     mWindow.display();
-}
-
-void Application::updateStatistics(sf::Time dt)
-{
-    mStatisticsUpdateTime += dt;
-    mStatisticsNumFrames += 1;
-    if (mStatisticsUpdateTime >= sf::seconds(1.0f))
-    {
-        mStatisticsText.setString("FPS: ");// + toString(mStatisticsNumFrames));
-
-        mStatisticsUpdateTime -= sf::seconds(1.0f);
-        mStatisticsNumFrames = 0;
-    }
 }
 
 void Application::registerStates()

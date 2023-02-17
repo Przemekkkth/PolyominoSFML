@@ -150,7 +150,6 @@ void World::update(sf::Time)
         bGameOver = !mGame.doesPieceFit(nCurrentPiece, nCurrentRotation, nCurrentX, nCurrentY);
     }
 
-    //updateSounds();
 }
 
 void World::draw()
@@ -223,13 +222,6 @@ bool World::isGameOver() const
 void World::loadTextures()
 {
     mTextures.load(Textures::Blocks, "res/blocks.png");
-}
-
-
-void World::updateSounds()
-{
-    mSounds.setListenerPosition(sf::Vector2f(0,0));
-    mSounds.removeStoppedSounds();
 }
 
 void World::render()
