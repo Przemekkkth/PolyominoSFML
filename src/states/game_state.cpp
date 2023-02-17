@@ -33,6 +33,20 @@ bool GameState::handleEvent(const sf::Event& event)
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
         requestStackPush(States::Pause);
 
+    //Uncomment if you want to make screenshot after P
+//    if(event.key.code == sf::Keyboard::P)
+//    {
+//        sf::RenderWindow& window = *getContext().window;
+//        static int index = 0;
+//        sf::Texture texture;
+//        texture.create(window.getSize().x, window.getSize().y);
+//        texture.update(window);
+//        std::string filename = "gameover" + std::to_string(index) + ".png";
+//        if (texture.copyToImage().saveToFile(filename))
+//        {
+//            index++;
+//        }
+//    }
     mWorld.processInput(event);
     return true;
 }
