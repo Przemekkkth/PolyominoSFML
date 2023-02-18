@@ -5,6 +5,7 @@
 #tetromino
 #pentomino
 
+
 linux {
     CONFIG += link_pkgconfig
     PKGCONFIG += sfml-window sfml-graphics sfml-system sfml-audio
