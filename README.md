@@ -11,7 +11,7 @@ A step by step series  that tell you how to get a execute project.
 
 Get it from GitHub
 ```
-git clone git@github.com:Przemekkkth/LookAtCursorQt-Cpp.git
+git clone git@github.com:Przemekkkth/PolyominoSFML.git
 ```
 Compile
 ```
